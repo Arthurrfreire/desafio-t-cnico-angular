@@ -1,6 +1,6 @@
 # Entrega - Avaliacao Tecnica Front End Angular
 
-[Link do codigo publico: substituir por este repositorio apos publicar no GitHub.](https://github.com/Arthurrfreire/desafio-t-cnico-angular)
+[Link do codigo publico.](https://github.com/Arthurrfreire/desafio-t-cnico-angular)
 
 ## 1. TypeScript e Qualidade de Codigo
 
