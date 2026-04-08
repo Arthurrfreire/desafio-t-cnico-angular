@@ -1,0 +1,97 @@
+<section class="users-page">
+  <header class="hero">
+    <div class="hero__copy">
+      <span class="eyebrow">Angular 20 + Signals + RxJS</span>
+      <h1>Central de usuários</h1>
+      <p>
+        Listagem reativa com busca por nome, feedback de loading, erro tratável e edição em modal
+        com Angular Material.
+      </p>
+    </div>
+
+    <aside class="hero__panel">
+      <span class="hero__panel-label">Resultados atuais</span>
+      <strong>{{ totalUsers() }}</strong>
+      <p>
+        @if (loading()) {
+          Atualizando a listagem...
+        } @else {
+          Busca com debounce de 300ms e cancelamento da requisição anterior.
+        }
+      </p>
+    </aside>
+  </header>
+
+  <section class="toolbar">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="toolbar__field">
+      <mat-label>Filtrar por nome</mat-label>
+      <input matInput [formControl]="searchControl" placeholder="Digite o nome do usuário" />
+    </mat-form-field>
+
+    <button mat-stroked-button type="button" (click)="clearSearch()" [disabled]="!searchControl.value">
+      Limpar busca
+    </button>
+  </section>
+
+  <p class="toolbar__hint">Dica: pesquise por "erro" para simular uma falha da API mockada.</p>
+
+  @if (loading() && !users().length) {
+    <section class="state-card">
+      <mat-spinner diameter="44" />
+      <h2>Carregando usuários</h2>
+      <p>Os cards estão sendo preparados.</p>
+    </section>
+  } @else if (error()) {
+    <section class="state-card state-card--error">
+      <h2>Não foi possível carregar a listagem</h2>
+      <p>{{ error() }}</p>
+      <button mat-flat-button type="button" (click)="reload()">Tentar novamente</button>
+    </section>
+  } @else if (!users().length) {
+    <section class="state-card">
+      <h2>Nenhum usuário encontrado</h2>
+      <p>Refine o nome digitado ou crie um novo cadastro pelo botão vermelho.</p>
+    </section>
+  } @else {
+    <section class="users-grid">
+      @for (user of users(); track user.id) {
+        <mat-card class="user-card">
+          <mat-card-header>
+            <mat-card-subtitle>{{ user.phoneType }}</mat-card-subtitle>
+            <mat-card-title>{{ user.name }}</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p class="user-card__email">{{ user.email }}</p>
+
+            <dl class="user-card__meta">
+              <div>
+                <dt>CPF</dt>
+                <dd>{{ formatCpf(user.cpf) }}</dd>
+              </div>
+              <div>
+                <dt>Telefone</dt>
+                <dd>{{ formatPhone(user.phone) }}</dd>
+              </div>
+            </dl>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button mat-stroked-button type="button" (click)="openEditDialog(user)">Editar</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </section>
+  }
+
+  @if (loading() && users().length) {
+    <div class="inline-loading">
+      <mat-spinner diameter="24" />
+      <span>Atualizando resultados...</span>
+    </div>
+  }
+
+  <button class="create-button" mat-fab extended type="button" (click)="openCreateDialog()" [disabled]="saving()">
+    {{ saving() ? 'Salvando...' : 'Novo usuário' }}
+  </button>
+</section>

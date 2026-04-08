@@ -1,0 +1,54 @@
+@import '@angular/material/prebuilt-themes/rose-red.css';
+
+:root {
+  --app-bg: #f5ede5;
+  --app-surface: rgba(255, 252, 247, 0.82);
+  --app-surface-strong: rgba(255, 253, 249, 0.96);
+  --app-text: #2e1e18;
+  --app-muted: #6e5a52;
+  --app-accent: #d84e3d;
+  --app-accent-dark: #8f2c21;
+  --app-line: rgba(61, 33, 25, 0.12);
+  --app-shadow: 0 28px 60px rgba(95, 57, 40, 0.12);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(216, 78, 61, 0.16), transparent 30%),
+    radial-gradient(circle at 85% 12%, rgba(255, 189, 127, 0.24), transparent 24%),
+    linear-gradient(180deg, #fff8f2 0%, var(--app-bg) 100%);
+  color: var(--app-text);
+  font-family: Aptos, 'Segoe UI Variable', 'Trebuchet MS', sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(96, 63, 50, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 63, 50, 0.03) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
